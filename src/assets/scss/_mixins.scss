@@ -1,0 +1,58 @@
+@import "./variables";
+// Small devices
+@mixin sm-mobile {
+  @media (max-width: #{$mobile-sm}) {
+    @content;
+  }
+}
+
+// Medium devices
+@mixin md-mobile {
+  @media (max-width: #{$mobile-md}) {
+    @content;
+  }
+}
+
+@mixin lg-mobile {
+  @media (max-width: #{$mobile-lg}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin sm-tab {
+  @media (min-width: #{$tab-sm}) {
+    @content;
+  }
+}
+
+@mixin lg-tab {
+  @media (min-width: #{$tab-lg}) {
+    @content;
+  }
+}
+
+// Extra large devices
+@mixin xs-desktop {
+  @media (min-width: #{$desktop-xs}) {
+    @content;
+  }
+}
+
+@mixin sm-desktop {
+  @media (min-width: #{$desktop-sm}) {
+    @content;
+  }
+}
+
+@mixin md-desktop {
+  @media (min-width: #{$desktop-md}) {
+    @content;
+  }
+}
+
+@mixin lg-desktop {
+  @media (min-width: #{$desktop-lg}) {
+    @content;
+  }
+}
