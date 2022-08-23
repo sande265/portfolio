@@ -52,8 +52,8 @@ jobs:
           name: react-github-actions-build
       - name: Push artifacts
         run: |
-          echo ${{github}}
-          git clone --depth 1 --single-branch -b ${{github.head_ref}} git@github.com:${{github.repository}}.git deploy
+          echo ${{github.ref}}
+          git clone --depth 1 --single-branch -b ${{GITHUB_REF##*}} git@github.com:${{github.repository}}.git deploy
           mv deploy/.git deploy-.git
           rm -rf deploy
           mkdir deploy
