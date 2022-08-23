@@ -53,7 +53,7 @@ jobs:
       - name: Push artifacts
         run: |
           echo ${{github.ref}}
-          git clone --depth 1 --single-branch -b ${{GITHUB_REF##*}} git@github.com:${{github.repository}}.git deploy
+          git clone --depth 1 --single-branch -b ${{github.GITHUB_REF##*}} git@github.com:${{github.repository}}.git deploy
           mv deploy/.git deploy-.git
           rm -rf deploy
           mkdir deploy
