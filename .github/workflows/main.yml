@@ -20,7 +20,7 @@ jobs:
           npm-version: 8.5.x
       - name: Install dependencies
         run: npm install
-      - name: Build Development App
+      - name: Build App
         env:
           CI: false
         run: npm run build
@@ -40,7 +40,7 @@ jobs:
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.1
         with:
-          ssh-public-key: ${{ secrets.SSH_PUBLIC_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Setup Git Client
         run: |
           git config --global user.email "sandeshsingh265@gmail.com"
