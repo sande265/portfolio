@@ -51,8 +51,9 @@ jobs:
         with:
           name: react-github-actions-build
       - name: Push artifacts
+        env:
+          BRANCH: echo "${{github.ref}} | sed 's/.*\///'"
         run: |
-          echo "BRANCH=${{github.ref}} | sed 's/.*\///'" >> ${{GITHUB_ENV}}
           git clone --depth 1 --single-branch -b ${{env.BRANCH}} git@github.com:${{github.repository}}.git deploy
           mv deploy/.git deploy-.git
           rm -rf deploy
