@@ -50,10 +50,13 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: react-github-actions-build
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${github.ref})"
+        id: extract_branch
       - name: Push artifacts
         run: |
-          echo ${{github.ref}}
-          git clone --depth 1 --single-branch -b ${{github.GITHUB_REF}} git@github.com:${{github.repository}}.git deploy
+          git clone --depth 1 --single-branch -b ${{steps.extract_branch.outputs.branch}} git@github.com:${{github.repository}}.git deploy
           mv deploy/.git deploy-.git
           rm -rf deploy
           mkdir deploy
