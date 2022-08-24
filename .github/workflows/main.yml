@@ -43,7 +43,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Setup Git Client
         run: |
-          git config --global user.email "sandeshsingh265@gmail.com"
+          git config --global user.email "ci.cd@github.com"
           git config --global user.name "CI/CD"
       # Download previously shared build
       - name: Get artifact
