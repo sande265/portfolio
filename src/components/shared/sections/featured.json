@@ -1,0 +1,68 @@
+[
+    {
+        "data": {
+            "cta": "",
+            "external": "https://github.com",
+            "github": "https://github.com",
+            "tech": [
+                "github API",
+                "react"
+            ],
+            "title": "Repo Fetcher",
+            "attachment": {
+                "name": "github_copilot",
+                "id": 1,
+                "url": "https://github.githubassets.com/images/modules/dashboard/copilot/bg.jpg",
+                "config": {
+                    "height": 438,
+                    "width": 700
+                }
+            }
+        },
+        "html": "<p>A minimal, dark blue theme for VS Code, Sublime Text, Atom, iTerm, and more. Available on <a href='https://marketplace.visualstudio.com/items?itemName=brittanychiang.halcyon-vscode' target='_blank' rel='nofollow noopener noreferrer'>Visual Studio Marketplace</a>, <a href='https://packagecontrol.io/packages/Halcyon%20Theme' target='_blank' rel='nofollow noopener noreferrer'>Package Control</a>, <a href='https://atom.io/themes/halcyon-syntax' target='_blank' rel='nofollow noopener noreferrer'>Atom Package Manager</a>, and <a href='https://www.npmjs.com/package/hyper-halcyon-theme' target='_blank' rel='nofollow noopener noreferrer'>npm</a>.</p>"
+    },
+    {
+        "data": {
+            "cta": "",
+            "external": "https://github.com",
+            "github": "https://github.com",
+            "tech": [
+                "github API",
+                "react"
+            ],
+            "title": "Fetcher API",
+            "attachment": {
+                "name": "github_copilot",
+                "id": 1,
+                "url": "https://github.githubassets.com/images/modules/dashboard/copilot/bg.jpg",
+                "config": {
+                    "height": 438,
+                    "width": 700
+                }
+            }
+        },
+        "html": "<p>A minimal, dark blue theme for VS Code, Sublime Text, Atom, iTerm, and more. Available on <a href='https://marketplace.visualstudio.com/items?itemName=brittanychiang.halcyon-vscode' target='_blank' rel='nofollow noopener noreferrer'>Visual Studio Marketplace</a>, <a href='https://packagecontrol.io/packages/Halcyon%20Theme' target='_blank' rel='nofollow noopener noreferrer'>Package Control</a>, <a href='https://atom.io/themes/halcyon-syntax' target='_blank' rel='nofollow noopener noreferrer'>Atom Package Manager</a>, and <a href='https://www.npmjs.com/package/hyper-halcyon-theme' target='_blank' rel='nofollow noopener noreferrer'>npm</a>.</p>"
+    },
+    {
+        "data": {
+            "cta": "",
+            "external": "https://github.com",
+            "github": "https://github.com",
+            "tech": [
+                "github API",
+                "react"
+            ],
+            "title": "PryMeAQI",
+            "attachment": {
+                "name": "github_copilot",
+                "id": 1,
+                "url": "https://sdk.flexn.org/img/TVSupport.svg",
+                "config": {
+                    "height": 438,
+                    "width": 700
+                }
+            }
+        },
+        "html": "<p>A minimal, dark blue theme for VS Code, Sublime Text, Atom, iTerm, and more. Available on <a href='https://marketplace.visualstudio.com/items?itemName=brittanychiang.halcyon-vscode' target='_blank' rel='nofollow noopener noreferrer'>Visual Studio Marketplace</a>, <a href='https://packagecontrol.io/packages/Halcyon%20Theme' target='_blank' rel='nofollow noopener noreferrer'>Package Control</a>, <a href='https://atom.io/themes/halcyon-syntax' target='_blank' rel='nofollow noopener noreferrer'>Atom Package Manager</a>, and <a href='https://www.npmjs.com/package/hyper-halcyon-theme' target='_blank' rel='nofollow noopener noreferrer'>npm</a>.</p>"
+    }
+]

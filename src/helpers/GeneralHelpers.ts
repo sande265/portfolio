@@ -25,7 +25,8 @@ export const KEY_CODES = {
 
 export const scrollRevealConfig = (
     delay = 200,
-    viewFactor = 0.25
+    viewFactor = 0.25,
+    reset?: boolean
 ) => ({
     origin: 'bottom',
     distance: '10px',
@@ -36,10 +37,10 @@ export const scrollRevealConfig = (
     scale: 1,
     easing: 'cubic-bezier(0.645, 0.045, 0.355, 1)',
     mobile: true,
-    reset: false,
+    reset: reset ?? true,
     useDelay: 'always',
     viewFactor,
-    viewOffset: { top: 0, right: 0, bottom: 0, left: 0 },
+    viewOffset: { top: 0, right: 0, bottom: 70, left: 0 },
 });
 
 export const addExternalLinksAttribute = () => {

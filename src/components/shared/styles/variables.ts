@@ -31,7 +31,7 @@ const variables = css`
     --fz-xxl: 22px;
     --fz-heading: 32px;
 
-    --border-radius: 4px;
+    --border-radius: 16px;
     --nav-height: 100px;
     --nav-scroll-height: 70px;
 
