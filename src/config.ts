@@ -1,5 +1,13 @@
 import { hex2rgba } from './helpers';
 
+declare interface ConfigOptions {
+  baseUrl: string | undefined;
+}
+
+export const Config: ConfigOptions = {
+  baseUrl: process.env.REACT_APP_BASE_URL
+}
+
 export const menus = [
   { name: 'About', href: '/#about' },
   { name: 'Experience', href: '/#jobs' },

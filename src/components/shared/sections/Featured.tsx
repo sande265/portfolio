@@ -50,7 +50,7 @@ const Featured: React.FC = () => {
             html,
           } = feature;
           return (
-            <Project key={idx} ref={el => (showContainer.current[idx] = el)}>
+            <Project key={idx} ref={el => (showContainer.current ? showContainer.current[idx] = el : () => "")}>
               <div className="project-content">
                 <p className="project-overline">Featured</p>
                 <h3 className="project-title">

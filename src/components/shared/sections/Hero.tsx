@@ -1,59 +1,64 @@
 import { Fragment, useEffect, useState } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 import { loaderDelay, navDelay } from '../../../helpers';
 import { usePrefersReducedMotion } from '../../hooks';
+import { RootState } from '../../../redux/store';
+import { getExperiences } from '../../../actions/experience-actions';
 
 const Hero: React.FC = () => {
 
-    const loggedUser: DataObj = {
-        name: 'Sandesh Singh',
-        role: 'Software Enginner',
-        work: {
-            organization: 'Genius Systems Pvt. Ltd.',
-            website: 'https://geniussystems.com.np',
-            logo: 'https://media.wimo.geniussystems.com.np/wimo/media-management/genius_250-f868487c-50d8-453e-8add-ce6a120246b3.png',
-            location: 'Dhobighat, Lalitpur Nepal',
-            country: 'Nepal',
-        },
-        description: `I'm a Software Enginner developing, maintaining & occasionally designing, wide array of digital products
-        & creating immaculate apps. Currently I am building`,
-    };
+    const { experiences } = useSelector(
+        (state: RootState) => ({
+            experiences: state.experience.experiences,
+        }),
+        shallowEqual,
+    );
+    const dispatch = useDispatch();
 
+    const [experience, setExperience] = useState<DataObj>({
+        description: '',
+        organization: {},
+    });
     const [mounted, setMounted] = useState<boolean>(false);
     const reduceMotion = usePrefersReducedMotion();
 
+    useEffect(() => {
+        const controller = new AbortController();
+        dispatch(getExperiences({}, controller));
+        return () => {
+            controller.abort();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (experiences?.length > 0) {
+            const experience = experiences.find((x: DataObj) => x.to === null);
+            if (experience) setExperience(experience);
+        }
+    }, [experiences]);
+
     const helloItem = <h1>Hi, my name is</h1>;
 
-    const nameItem = <h2 className="big-heading">{loggedUser.name}.</h2>;
+    const nameItem = <h2 className="big-heading">Sandesh Singh.</h2>;
 
-    const infoItem = (
-        <h3 className="big-heading">I build Native & Web apps.</h3>
-    );
+    const infoItem = <h3 className="big-heading">I build Native & Web apps.</h3>;
 
     const currentInfo = (
         <Fragment>
             <p>
-                {loggedUser.description}
+                {experience?.description}
                 <br />
                 @&nbsp;
-                <a
-                    href={loggedUser.work.website}
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    {loggedUser.work.organization}
+                <a href={experience?.organization?.website} target="_blank" rel="noreferrer">
+                    {experience?.organization?.organization}
                 </a>
             </p>
         </Fragment>
     );
 
-    const elements: JSX.Element[] = [
-        helloItem,
-        nameItem,
-        infoItem,
-        currentInfo,
-    ];
+    const elements: JSX.Element[] = [helloItem, nameItem, infoItem, currentInfo];
 
     useEffect(() => {
         if (reduceMotion) return;
@@ -65,7 +70,7 @@ const Hero: React.FC = () => {
         <HeroSection>
             {reduceMotion ? (
                 <Fragment>
-                    {elements.map((item: any, i: number) => (
+                    {elements.map((item, i: number) => (
                         <div key={i}>{item}</div>
                     ))}
                 </Fragment>
@@ -73,16 +78,8 @@ const Hero: React.FC = () => {
                 <TransitionGroup component={null}>
                     {mounted &&
                         elements.map((item: any, i: number) => (
-                            <CSSTransition
-                                key={i}
-                                classNames="fadeup"
-                                timeout={loaderDelay}
-                            >
-                                <div
-                                    style={{ transitionDelay: `${i + 1}00ms` }}
-                                >
-                                    {item}
-                                </div>
+                            <CSSTransition key={i} classNames="fadeup" timeout={loaderDelay}>
+                                <div style={{ transitionDelay: `${i + 1}00ms` }}>{item}</div>
                             </CSSTransition>
                         ))}
                 </TransitionGroup>

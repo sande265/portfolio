@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { About, Contact, Featured, Hero, Jobs, Projects } from "../shared/sections";
+import { About, Contact, Featured, Hero, Experiences, Projects } from "../shared/sections";
 
 const Home: React.FC = ({ }) => {
     return <Container className="fillHeight">
         <Hero />
         <About />
-        <Jobs />
+        <Experiences />
         <Featured />
         <Projects />
         <Contact />
