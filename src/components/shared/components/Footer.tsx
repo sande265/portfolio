@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
         if (process.env.NODE_ENV !== 'production') {
             return;
         }
-        fetch('https://api.github.com/repos/sande265/v4')
+        fetch('https://api.github.com/repos/sande265/portfolio')
             .then((response) => response.json())
             .then((json) => {
                 const { stargazers_count, forks_count } = json;
