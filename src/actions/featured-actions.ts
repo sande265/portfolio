@@ -1,22 +1,16 @@
-import { getAllError, getAllSuccess, processing } from '../redux/slices/ExperienceSlice';
+import { getAllError, getAllSuccess, processing } from '../redux/slices/FeaturedSlice';
 import { api } from './axios';
 import { AxiosResponse } from 'axios';
 
-declare interface ApiRequestAttributes {
-    limit?: string | number | undefined;
-    page?: string | number | undefined;
-    q?: string | number | undefined;
-}
-
-export const getExperiences = (
+export const getFeaturedProjects = (
     attribute?: ApiRequestAttributes,
     controller?: AbortController,
 ): any => {
-    const url = '/experience/v1/experiences';
+    const url = '/projects/v1/featured';
     const params: DataObj = {
         limit: attribute?.limit || 10,
         page: attribute?.page || 1,
-        q: attribute?.q,
+        q: attribute?.q
     };
 
     return (dispatch: any) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -8,18 +8,34 @@ import { loaderDelay } from '../../../helpers';
 import { useScrollDirection, usePrefersReducedMotion } from '../../hooks';
 import { Menu } from '.';
 import { IconLogo } from '../icons';
+import { getAnalytics, logEvent } from 'firebase/analytics';
+import { AppContext } from '../context';
+import { shallowEqual } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { useSelector } from 'react-redux';
 
 interface HeaderProps {
     isHome?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ isHome }) => {
+    const { aboutme } = useSelector(
+        (state: RootState) => ({
+            aboutme: state.about.abouts,
+        }),
+        shallowEqual,
+    );
+
+    const [about, setAbout] = useState<DataObj>({});
+
     const [isMounted, setIsMounted] = useState(!isHome);
     const scrollDirection: any = useScrollDirection({
         initialDirection: 'down',
     });
     const [scrolledToTop, setScrolledToTop] = useState(true);
     const prefersReducedMotion: any = usePrefersReducedMotion();
+    const analytics = getAnalytics();
+    const { client } = useContext<DataObj>(AppContext);
 
     const handleScroll = () => {
         setScrolledToTop(window.pageYOffset < 50);
@@ -42,6 +58,13 @@ const Header: React.FC<HeaderProps> = ({ isHome }) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (aboutme) {
+            const activeAbout = aboutme.find(x => x.status);
+            if (activeAbout) setAbout(activeAbout);
+        }
+    }, [aboutme]);
+
     const timeout = isHome ? loaderDelay : 0;
     const fadeClass = isHome ? 'fade' : '';
     const fadeDownClass = isHome ? 'fadedown' : '';
@@ -63,19 +86,21 @@ const Header: React.FC<HeaderProps> = ({ isHome }) => {
     const ResumeLink = (
         <a
             className="resume-button"
-            href="/resume.pdf"
+            href={about?.resume?.media}
             target="_blank"
             rel="noopener noreferrer"
-        >
+            onClick={() =>
+                logEvent(analytics, 'resume_download', {
+                    message: 'Download Button Clicked & Redirected',
+                    client,
+                })
+            }>
             Resume
         </a>
     );
 
     return (
-        <StyledHeader
-            scrollDirection={scrollDirection}
-            scrolledToTop={scrolledToTop}
-        >
+        <StyledHeader scrollDirection={scrollDirection} scrolledToTop={scrolledToTop}>
             <StyledNav>
                 {prefersReducedMotion ? (
                     <>
@@ -99,10 +124,7 @@ const Header: React.FC<HeaderProps> = ({ isHome }) => {
                     <>
                         <TransitionGroup component={null}>
                             {isMounted && (
-                                <CSSTransition
-                                    classNames={fadeClass}
-                                    timeout={timeout}
-                                >
+                                <CSSTransition classNames={fadeClass} timeout={timeout}>
                                     <>{Logo}</>
                                 </CSSTransition>
                             )}
@@ -113,48 +135,34 @@ const Header: React.FC<HeaderProps> = ({ isHome }) => {
                                 <TransitionGroup component={null}>
                                     {isMounted &&
                                         menus &&
-                                        menus.map(
-                                            ({ href, name }, i: number) => (
-                                                <CSSTransition
+                                        menus.map(({ href, name }, i: number) => (
+                                            <CSSTransition
+                                                key={i}
+                                                classNames={fadeDownClass}
+                                                timeout={timeout}>
+                                                <li
                                                     key={i}
-                                                    classNames={fadeDownClass}
-                                                    timeout={timeout}
-                                                >
-                                                    <li
-                                                        key={i}
-                                                        style={{
-                                                            transitionDelay: `${
-                                                                isHome
-                                                                    ? i * 100
-                                                                    : 0
-                                                            }ms`,
-                                                        }}
-                                                    >
-                                                        <Link to={href}>
-                                                            {name}
-                                                        </Link>
-                                                    </li>
-                                                </CSSTransition>
-                                            )
-                                        )}
+                                                    style={{
+                                                        transitionDelay: `${
+                                                            isHome ? i * 100 : 0
+                                                        }ms`,
+                                                    }}>
+                                                    <Link to={href}>{name}</Link>
+                                                </li>
+                                            </CSSTransition>
+                                        ))}
                                 </TransitionGroup>
                             </ol>
 
                             <TransitionGroup component={null}>
                                 {isMounted && (
-                                    <CSSTransition
-                                        classNames={fadeDownClass}
-                                        timeout={timeout}
-                                    >
+                                    <CSSTransition classNames={fadeDownClass} timeout={timeout}>
                                         <div
                                             style={{
                                                 transitionDelay: `${
-                                                    isHome
-                                                        ? menus.length * 100
-                                                        : 0
+                                                    isHome ? menus.length * 100 : 0
                                                 }ms`,
-                                            }}
-                                        >
+                                            }}>
                                             {ResumeLink}
                                         </div>
                                     </CSSTransition>
@@ -164,10 +172,7 @@ const Header: React.FC<HeaderProps> = ({ isHome }) => {
 
                         <TransitionGroup component={null}>
                             {isMounted && (
-                                <CSSTransition
-                                    classNames={fadeClass}
-                                    timeout={timeout}
-                                >
+                                <CSSTransition classNames={fadeClass} timeout={timeout}>
                                     <Menu />
                                 </CSSTransition>
                             )}
@@ -215,7 +220,7 @@ const StyledHeader: any = styled.header`
             css`
                 height: var(--nav-scroll-height);
                 transform: translateY(0px);
-                background-color: #100F0F;
+                background-color: #100f0f;
                 box-shadow: 0 10px 30px -10px var(--navy-shadow);
             `};
 
@@ -244,8 +249,8 @@ const StyledNav = styled.nav`
 
         a {
             color: var(--green);
-            width: 42px;
-            height: 42px;
+            width: 200px;
+            height: 60px;
 
             &:hover,
             &:focus {

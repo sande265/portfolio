@@ -1,32 +1,21 @@
-import { getAnalytics, logEvent } from 'firebase/analytics';
-import { useEffect, useState } from 'react';
+import { logEvent, getAnalytics } from 'firebase/analytics';
+import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { getClientIP } from '../../helpers';
-import { Home } from '../pages';
-import Layout from './Layout';
+import { ErrorPage, Home, Projects } from '../pages';
+import { AppContext } from '../shared';
 
 const AppRoutes = () => {
-
     const analytics = getAnalytics();
-    const [clientIP, setClientIP] = useState<string>("");
+    const { client } = useContext<DataObj>(AppContext);
 
-    useEffect(() => {
-        getClientIP((err: any, ip: string) => {
-            if (err) console.log("Error: ", err);
-            else {
-                setClientIP(ip);
-            }
-        })
-    }, [])
-
-    logEvent(analytics, "page_view", { "origin": clientIP })
+    logEvent(analytics, 'page_view', { client });
 
     return (
-        <Layout>
-            <Routes>
-                <Route path="/" element={<Home />} />
-            </Routes>
-        </Layout>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<ErrorPage />} />
+            <Route path="/projects" element={<Projects />} />
+        </Routes>
     );
 };
 

@@ -67,7 +67,7 @@ const Hero: React.FC = () => {
     }, []);
 
     return (
-        <HeroSection>
+        <HeroSection id='hero'>
             {reduceMotion ? (
                 <Fragment>
                     {elements.map((item, i: number) => (

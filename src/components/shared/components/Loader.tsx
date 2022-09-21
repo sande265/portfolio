@@ -17,35 +17,15 @@ const Loader: React.FC<LoaderProps> = ({ onLoaded }) => {
             complete: () => onLoaded(),
         });
 
-        loader
-            .add({
-                targets: '#logo path',
-                delay: 300,
-                duration: 1500,
-                easing: 'easeInOutCirc',
-                strokeDashoffset: [anime.setDashoffset, 0],
-            })
-            .add({
-                targets: '#logo #B',
-                duration: 700,
-                easing: 'easeInOutCirc',
-                opacity: 1,
-            })
-            .add({
-                targets: '#logo',
-                delay: 500,
-                duration: 300,
-                easing: 'easeInOutCirc',
-                opacity: 0,
-                scale: 0.1,
-            })
-            .add({
-                targets: '.loader',
-                duration: 200,
-                easing: 'easeInOutCirc',
-                opacity: 0,
-                zIndex: -1,
-            });
+        loader.add({
+            targets: '#logo path',
+            strokeDashoffset: [anime.setDashoffset, 0],
+            easing: 'easeInOutSine',
+            duration: 2000,
+            delay: function (el: any, i: number) {
+                return i * 120;
+            },
+        });
     };
 
     useEffect(() => {
@@ -86,7 +66,7 @@ const StyledLoader: any = styled.div`
 
     .logo-wrapper {
         width: max-content;
-        max-width: 100px;
+        max-width: 600px;
         transition: var(--transition);
         opacity: ${(props: any) => (props.isMounted ? 1 : 0)};
         svg {

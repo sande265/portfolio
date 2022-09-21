@@ -1,73 +1,97 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollReveal, scrollRevealConfig } from '../../../helpers';
+import { RootState } from '../../../redux/store';
 import { usePrefersReducedMotion } from '../../hooks';
 
 const Contact: React.FC = () => {
-  const showContainer: MutableRefObject<any> = useRef(null);
-  const reduceMotion: boolean = usePrefersReducedMotion();
 
-  const email = "sandeshsingh265@gmail.com"
+    const { aboutme } = useSelector(
+        (state: RootState) => ({
+            aboutme: state.about.abouts,
+        }),
+        shallowEqual,
+    );
 
-  useEffect(() => {
-    if (reduceMotion) return;
+    const [about, setAbout] = useState<DataObj>({});
+    const showContainer: MutableRefObject<any> = useRef(null);
+    const reduceMotion: boolean = usePrefersReducedMotion();
 
-    scrollReveal.reveal(showContainer.current, scrollRevealConfig());
-  }, []);
+    useEffect(() => {
+        if (reduceMotion) return;
 
-  return (
-    <Section id="contact" ref={showContainer}>
-      <h2 className="numbered-heading overline">What’s Next?</h2>
+        scrollReveal.reveal(showContainer.current, scrollRevealConfig());
+    }, []);
 
-      <h2 className="title">Get In Touch</h2>
+    useEffect(() => {
+        if (aboutme) {
+            const activeAbout = aboutme.find(x => x.status);
+            if (activeAbout) setAbout(activeAbout)
+        }
+    }, [aboutme])
 
-      <p>
-        Although I’m not currently looking for any new opportunities, my inbox is always open.
-        Whether you have a question or just want to say hi, I’ll try my best to get back to you!
-      </p>
+    return (
+        <Section id="contact" ref={showContainer}>
+            <h2 className="numbered-heading overline">What’s Next?</h2>
 
-      <a className="email-link" href={`mailto:${email}`}>
-        Say Hello
-      </a>
-    </Section>
-  );
+            <h2 className="title">Get In Touch</h2>
+
+            <p>
+                Although I’m not currently looking for any new opportunities, my inbox is always
+                open. Whether you have a question or just want to say hi, I’ll try my best to get
+                back to you!
+            </p>
+
+            <div>
+                <a className="email-link" href={`mailto:${about.email}`}>
+                    Say Hello
+                </a>
+            </div>
+            <div>
+                <a className="email-link" href={`tel:${about.contact}`}>
+                    Let&lsquo;s have a talk
+                </a>
+            </div>
+        </Section>
+    );
 };
 
 const Section = styled.section`
-  max-width: 600px;
-  margin: 0 auto 100px;
-  text-align: center;
+    max-width: 600px;
+    margin: 0 auto 100px;
+    text-align: center;
 
-  @media (max-width: 768px) {
-    margin: 0 auto 50px;
-  }
-
-  .overline {
-    display: block;
-    margin-bottom: 20px;
-    color: var(--green);
-    font-family: var(--font-mono);
-    font-size: var(--fz-md);
-    font-weight: 400;
-
-    &:before {
-      bottom: 0;
-      font-size: var(--fz-sm);
+    @media (max-width: 768px) {
+        margin: 0 auto 50px;
     }
 
-    &:after {
-      display: none;
+    .overline {
+        display: block;
+        margin-bottom: 20px;
+        color: var(--green);
+        font-family: var(--font-mono);
+        font-size: var(--fz-md);
+        font-weight: 400;
+
+        &:before {
+            bottom: 0;
+            font-size: var(--fz-sm);
+        }
+
+        &:after {
+            display: none;
+        }
     }
-  }
 
-  .title {
-    font-size: clamp(40px, 5vw, 60px);
-  }
+    .title {
+        font-size: clamp(40px, 5vw, 60px);
+    }
 
-  .email-link {
-    ${({ theme }) => theme.mixins.bigButton};
-    margin-top: 50px;
-  }
+    .email-link {
+        ${({ theme }) => theme.mixins.bigButton};
+        margin: 1rem auto;
+    }
 `;
 
 export { Contact };

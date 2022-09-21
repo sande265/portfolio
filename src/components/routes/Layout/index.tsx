@@ -29,10 +29,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         if (location.hash) {
             const id = location.hash.substring(1); // location.hash without the '#'
             timeout = setTimeout(() => {
+                const defaultEl: HTMLElement | null = document.getElementById("hero");
                 const el: HTMLElement | null = document.getElementById(id);
                 if (el) {
                     el.scrollIntoView();
                     el.focus();
+                } else {
+                    defaultEl?.scrollIntoView();
+                    defaultEl?.focus();
                 }
             }, 0);
         }
@@ -40,7 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         addExternalLinksAttribute();
 
         return () => clearTimeout(timeout);
-    }, [loading]);
+    }, [loading, location]);
 
     return (
         <ThemeProvider theme={BaseTheme}>

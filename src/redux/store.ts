@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import ExperienceSlice from './slices/ExperienceSlice';
+import { AboutSlice, ExperienceSlice, FeaturedSlice, ProjectSlice } from './slices';
 import { updateReduxStore } from './storage';
 
 export const store = configureStore({
     reducer: {
         experience: ExperienceSlice,
+        about: AboutSlice,
+        featured: FeaturedSlice,
+        project: ProjectSlice
     },
 });
 

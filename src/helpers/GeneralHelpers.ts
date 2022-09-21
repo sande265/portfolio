@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory();
@@ -95,7 +96,7 @@ export const scrollRevealConfig = (delay = 200, viewFactor = 0.25, reset?: boole
     scale: 1,
     easing: 'cubic-bezier(0.645, 0.045, 0.355, 1)',
     mobile: true,
-    reset: reset ?? true,
+    reset: false,
     useDelay: 'always',
     viewFactor,
     viewOffset: { top: 0, right: 0, bottom: 70, left: 0 },
@@ -113,8 +114,11 @@ export const addExternalLinksAttribute = () => {
         }
 };
 
-export const getClientIP = (cb: CallableFunction) => {
-    fetch('https://api.ipify.org/?format=json')
-        .then(res => res.json())
-        .then(data => cb(null, data?.ip));
+export const getClientIP = async (signal?: any) => {
+    try {
+        const res = await axios.get('https://api.ipify.org/?format=json', { signal });
+        return res?.data;
+    } catch (error: any) {
+        return error?.response;
+    }
 };

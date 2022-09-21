@@ -1,19 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-// import { experienceConstants } from '../../constants';
 
-export interface ExperienceState {
+export interface ExperienceState extends DefaultRdxState {
     experience: DataObj;
     experiences: Array<DataObj>;
-    error: DataObj,
-    processing: boolean;
 }
 
 const initialState: ExperienceState = {
     experience: {},
     experiences: [],
     processing: false,
-    error: {}
+    error: {},
 };
 
 const { reducer, actions } = createSlice({
@@ -28,13 +25,13 @@ const { reducer, actions } = createSlice({
             state.processing = false;
         },
         getAllError: (state, { payload }: PayloadAction<DataObj>) => {
-            state.error = payload;
+            state.error = payload?.data;
             state.experiences = [];
             state.processing = false;
         },
     },
 });
 
-export const { processing, getAllError, getAllSuccess } = actions
+export const { processing, getAllError, getAllSuccess } = actions;
 
-export default reducer
+export { reducer as ExperienceSlice };

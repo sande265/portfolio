@@ -11,7 +11,7 @@ export const Config: ConfigOptions = {
 export const menus = [
   { name: 'About', href: '/#about' },
   { name: 'Experience', href: '/#jobs' },
-  { name: 'Work', href: '/#projects' },
+  { name: 'Projects', href: '/#projects' },
   { name: 'Contact', href: '/#contact' },
 ];
 
