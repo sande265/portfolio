@@ -12,7 +12,7 @@ export const ErrorPage = () => {
                 <h1>404</h1>
                 <h3>You seem to be lost!</h3>
                 <span>The page you are looking for does not exists.</span>
-                <Button onClick={() => window.location = "/"}>Home</Button>
+                <Button onClick={() => window.location.pathname = "/"}>Home</Button>
                 <Button onClick={() => window.history.back()}>Back</Button>
             </Section>
         </Container>
