@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from './Icons';
@@ -6,26 +6,26 @@ import { links } from '../../../config';
 
 const Footer: React.FC = () => {
 
-    const [githubInfo, setGitHubInfo] = useState<DataObj>({
-        stars: null,
-        forks: null,
-    });
+    // const [githubInfo, setGitHubInfo] = useState<DataObj>({
+    //     stars: null,
+    //     forks: null,
+    // });
 
-    useEffect(() => {
-        if (process.env.NODE_ENV !== 'production') {
-            return;
-        }
-        fetch('https://api.github.com/repos/sande265/portfolio')
-            .then((response) => response.json())
-            .then((json) => {
-                const { stargazers_count, forks_count } = json;
-                setGitHubInfo({
-                    stars: stargazers_count,
-                    forks: forks_count,
-                });
-            })
-            .catch((e) => console.error(e));
-    }, []);
+    // useEffect(() => {
+    //     if (process.env.NODE_ENV !== 'production') {
+    //         return;
+    //     }
+    //     fetch('https://api.github.com/repos/sande265/portfolio')
+    //         .then((response) => response.json())
+    //         .then((json) => {
+    //             const { stargazers_count, forks_count } = json;
+    //             setGitHubInfo({
+    //                 stars: stargazers_count,
+    //                 forks: forks_count,
+    //             });
+    //         })
+    //         .catch((e) => console.error(e));
+    // }, []);
 
     return (
         <StyledFooter>
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                 </a>
                 <div>
                     <div>Design Inspiration from <span style={{ color: "var(--green)" }}>Brittany Chiang</span></div>
-                    {githubInfo.stars && githubInfo.forks && (
+                    {/* {githubInfo.stars && githubInfo.forks && (
                         <div className="github-stats">
                             <span>
                                 <Icon name="Star" />
@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
                                 </span>
                             </span>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </StyledCredit>
         </StyledFooter>

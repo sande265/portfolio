@@ -1,5 +1,4 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { shallowEqual, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
@@ -14,7 +13,6 @@ const Experiences: React.FC = () => {
         }),
         shallowEqual,
     );
-    const dispatch = useDispatch();
 
     const showContainer: MutableRefObject<any> = useRef(null);
     const reduceMotion: boolean = usePrefersReducedMotion();
