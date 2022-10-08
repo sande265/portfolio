@@ -72,7 +72,7 @@ const About: React.FC = () => {
                 </Text>
                 <Pic>
                     <div className="wrapper">
-                        <img src={about?.attachment?.media} alt="" className="img" />
+                        <img src={about?.attachment?.media} style={{ width: "100%" }} alt="" className="img" />
                     </div>
                 </Pic>
             </div>

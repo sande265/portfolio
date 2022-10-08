@@ -57,7 +57,12 @@ const Featured: React.FC = () => {
             </h2>
             <ProjectsGrid>
                 {featured_projects?.map((feature: DataObj | FeaturedData, idx: number) => {
-                    const { title, attachments, cta, project: { html, external, github, tech } } = feature;
+                    const {
+                        title,
+                        attachments,
+                        cta,
+                        project: { html, external, github, tech },
+                    } = feature;
                     return (
                         <Project
                             key={idx}
@@ -104,16 +109,23 @@ const Featured: React.FC = () => {
                                 </div>
                             </div>
                             <div className="project-image">
-                                {attachments?.map((item: FeaturedAttachment, idx: number) => {                                    
+                                {attachments?.map((item: FeaturedAttachment, idx: number) => {
+                                    let mediaUrl = item?.media;
+                                    if (item?.height) mediaUrl += `?h=${item.height}`;
+                                    if (item?.width) mediaUrl += `${mediaUrl.includes("?") ? "&" : "?"}w=${item.width}`;
                                     return (
                                         <a
                                             key={idx}
+                                            className="image-wrapper"
+                                            target={'_blank'}
+                                            rel="noreferrer"
                                             href={external ? external : github ? github : '#'}>
                                             <img
-                                                src={item?.media}
+                                                src={mediaUrl}
                                                 alt={title}
-                                                // height={item?.height ?? "auto"}
-                                                // width={item?.width ?? "auto"}
+                                                style={{ width: '100%', objectFit: "contain", borderRadius: "var(--border-radius)" }}
+                                                // height={438}
+                                                // width={700}
                                                 className="img"
                                             />
                                         </a>
@@ -283,7 +295,12 @@ const Project = styled.li`
         border-radius: var(--border-radius);
         background-color: var(--light-navy);
         color: var(--light-slate);
+        opacity: 0.9;
         font-size: var(--fz-lg);
+
+        :hover {
+            opacity: 1;
+        }
 
         @media (max-width: 768px) {
             padding: 20px 0;
@@ -362,6 +379,11 @@ const Project = styled.li`
             ${({ theme }) => theme.mixins.smallButton};
             margin: 10px;
         }
+    }
+
+    .image-wrapper {
+        display: inline-flex;
+        justify-content: center;
     }
 
     .project-image {
