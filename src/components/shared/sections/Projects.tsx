@@ -44,7 +44,7 @@ const Projects: React.FC = () => {
     }, []);
 
     const GRID_LIMIT = 6;
-    const firstSix = projects?.slice(0, GRID_LIMIT);
+    const firstSix = projects ? projects?.slice(0, GRID_LIMIT) : [];
     const projectsToShow = showMore ? projects : firstSix;
 
     const projectInner = (node: DataObj) => {
