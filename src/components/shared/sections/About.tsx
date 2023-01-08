@@ -29,7 +29,7 @@ const About: React.FC = () => {
 
     useEffect(() => {
         if (aboutme) {
-            const activeAbout = aboutme.find(x => x.status);
+            const activeAbout = aboutme?.find(x => x.status);
             if (activeAbout) setAbout(activeAbout)
         }
     }, [aboutme])
