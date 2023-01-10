@@ -53,7 +53,7 @@ const About: React.FC = () => {
                         </p>
                         <p>
                             Today, I’ve had the privilege of working with{' '}
-                            {about?.showcase?.map((org: DataObj, idx: number) => (
+                            {about?.organization?.map((org: DataObj, idx: number) => (
                                 <Fragment key={idx}>
                                     <a href={org.website}>
                                         {org.description}
