@@ -37,7 +37,7 @@ const Projects: React.FC = () => {
 
     useEffect(() => {
         const controller = new AbortController();
-        dispatch(getProjects({ limit: 100, filter: [{ key: 'status', value: true }], sort_field: "order" }, controller));
+        dispatch(getProjects({ limit: 100, filter: [{ key: 'status', value: 1 }], sort_field: "order" }, controller));
         return () => {
             controller.abort();
         };
