@@ -32,7 +32,8 @@ const Experiences: React.FC = () => {
             <div className="inner">
                 <TabList role="tablist" aria-label="Experiences Tab">
                     {experiences?.map((exp: DataObj, idx: number) => {
-                        const { organization: { name } } = exp;
+                        const { organization } = exp;
+                        const { name } = organization ?? {};
                         return (
                             <TabButton
                                 key={idx}
@@ -52,7 +53,8 @@ const Experiences: React.FC = () => {
                 </TabList>
                 <TabPanels>
                     {experiences?.map((exp: DataObj, idx: number) => {
-                        const { title, range, html, organization: { website, organization } } = exp;
+                        const { title, range, html, organization } = exp;
+                        const { website, organization: name } = organization ?? {};
                         return (
                             <CSSTransition key={idx} timeout={250} classNames="fade">
                                 <TabPanel
@@ -71,7 +73,7 @@ const Experiences: React.FC = () => {
                                                 rel="noreferrer"
                                                 target="_blank"
                                                 className="inline-link">
-                                                {organization}
+                                                {name}
                                             </a>
                                         </span>
                                     </h3>
