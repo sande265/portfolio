@@ -44,7 +44,7 @@ const Button = styled.button`
     transition: 0.2s ease;
     font-weight: bold;
     margin: 5px 0px;
-    border: 4px solid var(--green);
+    border: 4px solid var(--tinder-pink);
     color: white;
 
     &:before {
@@ -55,13 +55,13 @@ const Button = styled.button`
         width: 0%;
         height: 100%;
         border-radius: 30px;
-        background: var(--green);
+        background: var(--tinder-pink);
         z-index: -1;
         transition: 0.2s ease;
     }
 
     &:hover {
-        background-color: var(--green);
+        background-color: var(--tinder-pink);
         color: var(--white);
         transition: 0.2s ease;
     }

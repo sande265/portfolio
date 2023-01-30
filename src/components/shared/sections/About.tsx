@@ -117,7 +117,7 @@ const Text = styled.div`
                 content: '▹';
                 position: absolute;
                 left: 0;
-                color: var(--green);
+                color: var(--tinder-pink);
                 font-size: var(--fz-sm);
                 line-height: 12px;
             }
@@ -139,7 +139,7 @@ const Pic = styled.div`
         position: relative;
         width: 100%;
         border-radius: var(--border-radius);
-        background-color: var(--green);
+        background-color: var(--tinder-pink);
 
         &:hover,
         &:focus {
@@ -184,7 +184,7 @@ const Pic = styled.div`
         }
 
         &:after {
-            border: 2px solid var(--green);
+            border: 2px solid var(--tinder-pink);
             top: 20px;
             left: 20px;
             z-index: -1;

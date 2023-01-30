@@ -69,7 +69,7 @@ const Section = styled.section`
     .overline {
         display: block;
         margin-bottom: 20px;
-        color: var(--green);
+        color: var(--tinder-pink);
         font-family: var(--font-mono);
         font-size: var(--fz-md);
         font-weight: 400;

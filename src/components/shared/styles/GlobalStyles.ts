@@ -27,7 +27,7 @@ const GlobalStyle: any = createGlobalStyle`
 
   /* Provide basic, default focus styles.*/
   :focus {
-    outline: 2px dashed var(--green);
+    outline: 2px dashed var(--tinder-pink);
     outline-offset: 3px;
   }
 
@@ -46,7 +46,7 @@ const GlobalStyle: any = createGlobalStyle`
     focus.
   */
   :focus-visible {
-    outline: 2px dashed var(--green);
+    outline: 2px dashed var(--tinder-pink);
     outline-offset: 3px;
   }
 
@@ -194,7 +194,7 @@ const GlobalStyle: any = createGlobalStyle`
       counter-increment: section;
       content: '0' counter(section) '.';
       margin-right: 10px;
-      color: var(--green);
+      color: var(--tinder-pink);
       font-family: var(--font-mono);
       font-size: clamp(var(--fz-md), 3vw, var(--fz-xl));
       font-weight: 400;
@@ -258,7 +258,7 @@ const GlobalStyle: any = createGlobalStyle`
 
     &:hover,
     &:focus {
-      color: var(--green);
+      color: var(--tinder-pink);
     }
 
     &.inline-link {
@@ -322,14 +322,14 @@ const GlobalStyle: any = createGlobalStyle`
           content: '▹';
           position: absolute;
           left: 0;
-          color: var(--green);
+          color: var(--tinder-pink);
         }
       }
     }
   }
 
   blockquote {
-    border-left-color: var(--green);
+    border-left-color: var(--tinder-pink);
     border-left-style: solid;
     border-left-width: 1px;
     margin-left: 0px;
@@ -369,7 +369,7 @@ const GlobalStyle: any = createGlobalStyle`
 
     &:focus,
     &:active {
-      background-color: var(--green);
+      background-color: var(--tinder-pink);
       color: var(--navy);
       top: 0;
       left: 0;
@@ -381,18 +381,18 @@ const GlobalStyle: any = createGlobalStyle`
   }
 
   #logo {
-    color: var(--green);
+    color: var(--tinder-pink);
   }
 
   .overline {
-    color: var(--green);
+    color: var(--tinder-pink);
     font-family: var(--font-mono);
     font-size: var(--fz-md);
     font-weight: 400;
   }
 
   .subtitle {
-    color: var(--green);
+    color: var(--tinder-pink);
     margin: 0 0 20px 0;
     font-size: var(--fz-md);
     font-family: var(--font-mono);
@@ -415,7 +415,7 @@ const GlobalStyle: any = createGlobalStyle`
     display: flex;
     align-items: center;
     margin-bottom: 50px;
-    color: var(--green);
+    color: var(--tinder-pink);
 
     .arrow {
       display: block;

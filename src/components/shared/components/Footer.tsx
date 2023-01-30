@@ -43,10 +43,10 @@ const Footer: React.FC = () => {
 
             <StyledCredit tabIndex={-1}>
                 <a href="https://github.com/sande265" className="href">
-                    <div className="">Built by <span style={{ color: "var(--green)" }}>Sandesh Singh</span></div>
+                    <div className="">Built by <span style={{ color: "var(--tinder-pink)" }}>Sandesh Singh</span></div>
                 </a>
                 <div>
-                    <div>Design Inspiration from <span style={{ color: "var(--green)" }}>Brittany Chiang</span></div>
+                    <div>Design Inspiration from <span style={{ color: "var(--tinder-pink)" }}>Brittany Chiang</span></div>
                     {/* {githubInfo.stars && githubInfo.forks && (
                         <div className="github-stats">
                             <span>

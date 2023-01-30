@@ -37,7 +37,12 @@ const Projects: React.FC = () => {
 
     useEffect(() => {
         const controller = new AbortController();
-        dispatch(getProjects({ limit: 100, filter: [{ key: 'status', value: 1 }], sort_field: "order" }, controller));
+        dispatch(
+            getProjects(
+                { limit: 100, filter: [{ key: 'status', value: 1 }], sort_field: 'order' },
+                controller,
+            ),
+        );
         return () => {
             controller.abort();
         };
@@ -54,8 +59,8 @@ const Projects: React.FC = () => {
             <div className="project-inner">
                 <header>
                     <div className="project-top">
-                        <div className="folder">
-                            <Icon name="Folder" />
+                        <div className={`badge ${github ? 'badge-org' : 'badge-personal'}`}>
+                            <span>{github ? 'Personal' : 'Organizational'}</span>
                         </div>
                         <div className="project-links">
                             {github && (
@@ -229,14 +234,15 @@ const Project = styled.li`
         ${({ theme }) => theme.mixins.flexBetween};
         margin-bottom: 35px;
 
-        .folder {
-            color: var(--green);
-            svg {
-                width: 40px;
-                height: 40px;
-            }
+        .badge span {
+            background-color: var(--green-tint);
+            color: var(--white);
+            border-radius: 16px;
+            font-size: 20px;
+            text-align: center;
+            padding: 4px 8px 1px;
         }
-
+        
         .project-links {
             display: flex;
             align-items: center;
