@@ -1,16 +1,39 @@
-import React, { useState, useEffect, useRef, MutableRefObject } from 'react';
+import React, { useState, useEffect, useRef, MutableRefObject, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Helmet from 'react-helmet';
 import { menus } from '../../../config';
 import { KEY_CODES } from '../../../helpers';
 import { useOnClickOutside } from '../../hooks';
+import { shallowEqual } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { useSelector } from 'react-redux';
+import { getAnalytics, logEvent } from 'firebase/analytics';
+import { AppContext } from '../context';
 
 const Menu: React.FC = () => {
-    
     const [menuOpen, setMenuOpen] = useState(false);
 
+    const { aboutme } = useSelector(
+        (state: RootState) => ({
+            aboutme: state.about.abouts,
+        }),
+        shallowEqual,
+    );
+
+    const [about, setAbout] = useState<DataObj>({});
+
+    useEffect(() => {
+        if (aboutme) {
+            const activeAbout = aboutme.find(x => x.status);
+            if (activeAbout) setAbout(activeAbout);
+        }
+    }, [aboutme]);
+
     const toggleMenu = () => setMenuOpen(!menuOpen);
+
+    const analytics = getAnalytics();
+    const { client } = useContext<DataObj>(AppContext);
 
     const buttonRef: MutableRefObject<any> = useRef(null);
     const navRef: MutableRefObject<any> = useRef(null);
@@ -20,10 +43,7 @@ const Menu: React.FC = () => {
     let lastFocusableEl: HTMLElement;
 
     const setFocusables = () => {
-        menuFocusables = [
-            buttonRef.current,
-            ...Array.from(navRef.current?.querySelectorAll('a')),
-        ];
+        menuFocusables = [buttonRef.current, ...Array.from(navRef.current?.querySelectorAll('a'))];
         firstFocusableEl = menuFocusables[0];
         lastFocusableEl = menuFocusables[menuFocusables.length - 1];
     };
@@ -101,8 +121,7 @@ const Menu: React.FC = () => {
                     onClick={toggleMenu}
                     menuOpen={menuOpen}
                     ref={buttonRef}
-                    aria-label="Menu"
-                >
+                    aria-label="Menu">
                     <div className="ham-box">
                         <div className="ham-box-inner" />
                     </div>
@@ -111,17 +130,13 @@ const Menu: React.FC = () => {
                 <StyledSidebar
                     menuOpen={menuOpen}
                     aria-hidden={!menuOpen}
-                    tabIndex={menuOpen ? 1 : -1}
-                >
+                    tabIndex={menuOpen ? 1 : -1}>
                     <nav ref={navRef}>
                         {menus && (
                             <ol>
                                 {menus.map(({ href, name }, i) => (
                                     <li key={i}>
-                                        <Link
-                                            to={href}
-                                            onClick={() => setMenuOpen(false)}
-                                        >
+                                        <Link to={href} onClick={() => setMenuOpen(false)}>
                                             {name}
                                         </Link>
                                     </li>
@@ -129,7 +144,15 @@ const Menu: React.FC = () => {
                             </ol>
                         )}
 
-                        <a href="/resume.pdf" className="resume-link">
+                        <a
+                            href={about?.resume?.media}
+                            className="resume-link"
+                            onClick={() =>
+                                logEvent(analytics, 'resume_download_mobile', {
+                                    message: 'Download Button Clicked & Redirected',
+                                    client,
+                                })
+                            }>
                             Resume
                         </a>
                     </nav>
@@ -186,14 +209,9 @@ const StyledHamburgerButton: any = styled.button`
         transition-duration: 0.22s;
         transition-property: transform;
         transition-delay: ${(props: any) => (props.menuOpen ? `0.12s` : `0s`)};
-        transform: rotate(
-            ${(props: any) => (props.menuOpen ? `225deg` : `0deg`)}
-        );
+        transform: rotate(${(props: any) => (props.menuOpen ? `225deg` : `0deg`)});
         transition-timing-function: cubic-bezier(
-            ${(props) =>
-                props.menuOpen
-                    ? `0.215, 0.61, 0.355, 1`
-                    : `0.55, 0.055, 0.675, 0.19`}
+            ${props => (props.menuOpen ? `0.215, 0.61, 0.355, 1` : `0.55, 0.055, 0.675, 0.19`)}
         );
         &:before,
         &:after {
@@ -211,16 +229,16 @@ const StyledHamburgerButton: any = styled.button`
             transition-property: transform;
         }
         &:before {
-            width: ${(props) => (props.menuOpen ? `100%` : `120%`)};
-            top: ${(props) => (props.menuOpen ? `0` : `-10px`)};
-            opacity: ${(props) => (props.menuOpen ? 0 : 1)};
+            width: ${props => (props.menuOpen ? `100%` : `120%`)};
+            top: ${props => (props.menuOpen ? `0` : `-10px`)};
+            opacity: ${props => (props.menuOpen ? 0 : 1)};
             transition: ${({ menuOpen }) =>
                 menuOpen ? 'var(--ham-before-active)' : 'var(--ham-before)'};
         }
         &:after {
-            width: ${(props) => (props.menuOpen ? `100%` : `80%`)};
-            bottom: ${(props) => (props.menuOpen ? `0` : `-10px`)};
-            transform: rotate(${(props) => (props.menuOpen ? `-90deg` : `0`)});
+            width: ${props => (props.menuOpen ? `100%` : `80%`)};
+            bottom: ${props => (props.menuOpen ? `0` : `-10px`)};
+            transform: rotate(${props => (props.menuOpen ? `-90deg` : `0`)});
             transition: ${({ menuOpen }) =>
                 menuOpen ? 'var(--ham-after-active)' : 'var(--ham-after)'};
         }
@@ -244,7 +262,7 @@ const StyledSidebar: any = styled.aside`
         box-shadow: -10px 0px 30px -15px var(--navy-shadow);
         z-index: 9;
         transform: translateX(${(props: any) => (props.menuOpen ? 0 : 100)}vw);
-        visibility: ${(props) => (props.menuOpen ? 'visible' : 'hidden')};
+        visibility: ${props => (props.menuOpen ? 'visible' : 'hidden')};
         transition: var(--transition);
     }
 
