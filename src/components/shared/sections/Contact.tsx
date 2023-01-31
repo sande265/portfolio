@@ -49,7 +49,7 @@ const Contact: React.FC = () => {
                 </a>
             </div>
             <div>
-                <a className="email-link" href={`tel:${"+" + about?.country?.country_code}${about.contact}`}>
+                <a className="email-link" href={`tel:${about.contact}`}>
                     Let&lsquo;s have a talk
                 </a>
             </div>
