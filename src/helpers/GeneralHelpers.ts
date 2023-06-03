@@ -96,7 +96,7 @@ export const scrollRevealConfig = (delay = 200, viewFactor = 0.25, reset?: boole
     scale: 1,
     easing: 'cubic-bezier(0.645, 0.045, 0.355, 1)',
     mobile: true,
-    reset: false,
+    reset: false || reset,
     useDelay: 'always',
     viewFactor,
     viewOffset: { top: 0, right: 0, bottom: 70, left: 0 },

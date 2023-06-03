@@ -441,7 +441,7 @@ const Project = styled.li`
                 object-fit: cover;
                 width: auto;
                 height: 100%;
-                filter: contrast(1) brightness(50%);
+                filter: contrast(1) brightness(25%);
             }
         }
     }

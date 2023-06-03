@@ -7,7 +7,7 @@ import { RootState } from '../../../redux/store';
 import { usePrefersReducedMotion } from '../../hooks';
 
 const Experiences: React.FC = () => {
-    const { experiences } = useSelector(
+    const { experiences }: any = useSelector(
         (state: RootState) => ({
             experiences: state.experience.experiences,
         }),
@@ -31,60 +31,63 @@ const Experiences: React.FC = () => {
             <h2 className="numbered-heading">Places I’ve Worked</h2>
             <div className="inner">
                 <TabList role="tablist" aria-label="Experiences Tab">
-                    {experiences?.map((exp: DataObj, idx: number) => {
-                        const { organization } = exp;
-                        const { name } = organization ?? {};
-                        return (
-                            <TabButton
-                                key={idx}
-                                role="tab"
-                                isActive={activeTabId === idx}
-                                onClick={() => setActiveTab(idx)}
-                                ref={(el: Element) => (tabs.current[idx] = el)}
-                                id={`tab-${idx}`}
-                                tabIndex={activeTabId === idx ? 0 : -1}
-                                aria-selected={activeTabId === idx ? true : false}
-                                aria-controls={`panel-${idx}`}>
-                                <span>{name}</span>
-                            </TabButton>
-                        );
-                    })}
+                    {[...experiences]
+                        ?.sort((a: any, b: any) => new Date(b.from).getDate() - new Date(a.from).getDate())
+                        ?.map((exp: DataObj, idx: number) => {
+                            const { organization } = exp;
+                            const { name } = organization ?? {};
+                            return (
+                                <TabButton
+                                    key={idx}
+                                    role="tab"
+                                    isActive={activeTabId === idx}
+                                    onClick={() => setActiveTab(idx)}
+                                    ref={(el: Element) => (tabs.current[idx] = el)}
+                                    id={`tab-${idx}`}
+                                    tabIndex={activeTabId === idx ? 0 : -1}
+                                    aria-selected={activeTabId === idx ? true : false}
+                                    aria-controls={`panel-${idx}`}>
+                                    <span>{name}</span>
+                                </TabButton>
+                            );
+                        })}
                     <Highlight activeTabId={activeTabId} />
                 </TabList>
                 <TabPanels>
-                    {experiences?.map((exp: DataObj, idx: number) => {
-                        const { title, range, html, organization } = exp;
-                        const { website, organization: name } = organization ?? {};
-                        return (
-                            <CSSTransition key={idx} timeout={250} classNames="fade">
-                                <TabPanel
-                                    id={`panel-${idx}`}
-                                    role="tabpanel"
-                                    tabIndex={activeTabId === idx ? 0 : -``}
-                                    aria-labelledby={`tab-${idx}`}
-                                    aria-hidden={activeTabId !== idx}
-                                    hidden={activeTabId !== idx}>
-                                    <h3>
-                                        <span>{title}</span>
-                                        <span className="company">
-                                            &nbsp;@&nbsp;
-                                            <a
-                                                href={website}
-                                                rel="noreferrer"
-                                                target="_blank"
-                                                className="inline-link">
-                                                {name}
-                                            </a>
-                                        </span>
-                                    </h3>
+                    {[...experiences]
+                        ?.sort((a: any, b: any) => new Date(b.from).getDate() - new Date(a.from).getDate())?.map((exp: DataObj, idx: number) => {
+                            const { title, range, html, organization } = exp;
+                            const { website, organization: name } = organization ?? {};
+                            return (
+                                <CSSTransition key={idx} timeout={250} classNames="fade">
+                                    <TabPanel
+                                        id={`panel-${idx}`}
+                                        role="tabpanel"
+                                        tabIndex={activeTabId === idx ? 0 : -``}
+                                        aria-labelledby={`tab-${idx}`}
+                                        aria-hidden={activeTabId !== idx}
+                                        hidden={activeTabId !== idx}>
+                                        <h3>
+                                            <span>{title}</span>
+                                            <span className="company">
+                                                &nbsp;@&nbsp;
+                                                <a
+                                                    href={website}
+                                                    rel="noreferrer"
+                                                    target="_blank"
+                                                    className="inline-link">
+                                                    {name}
+                                                </a>
+                                            </span>
+                                        </h3>
 
-                                    <p className="range">{range}</p>
+                                        <p className="range">{range}</p>
 
-                                    <div dangerouslySetInnerHTML={{ __html: html }} />
-                                </TabPanel>
-                            </CSSTransition>
-                        );
-                    })}
+                                        <div dangerouslySetInnerHTML={{ __html: html }} />
+                                    </TabPanel>
+                                </CSSTransition>
+                            );
+                        })}
                 </TabPanels>
             </div>
         </Section>
@@ -125,11 +128,14 @@ const TabList = styled.div`
         padding-left: 50px;
         margin-left: -50px;
         margin-bottom: 30px;
+        ::-webkit-scrollbar {
+            display: none;
+        }
     }
     @media (max-width: 480px) {
         width: calc(100% + 50px);
-        padding-left: 25px;
-        margin-left: -25px;
+        /* padding-left: 25px;
+        margin-left: -25px; */
     }
 
     li {
@@ -172,7 +178,10 @@ const TabButton: any = styled.button`
     }
     @media (max-width: 600px) {
         ${({ theme }) => theme.mixins.flexCenter};
-        min-width: 120px;
+        /* min-width: 120px; */
+        max-width: 150px;
+        min-width: 150px;
+        margin-inline: 0.5rem;
         padding: 0 15px;
         border-left: 0;
         border-bottom: 2px solid var(--lightest-navy);
@@ -201,14 +210,15 @@ const Highlight: any = styled.div`
     @media (max-width: 600px) {
         top: auto;
         bottom: 0;
+        left: 8px;
         width: 100%;
         max-width: var(--tab-width);
         height: 2px;
         margin-left: 50px;
-        transform: translateX(calc(${({ activeTabId }: any) => activeTabId} * var(--tab-width)));
+        transform: translateX(calc(${({ activeTabId }: any) => activeTabId} * 165px));
     }
     @media (max-width: 480px) {
-        margin-left: 25px;
+        margin-left: 50px;
     }
 `;
 
