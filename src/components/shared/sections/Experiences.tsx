@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
-import { scrollReveal, scrollRevealConfig } from '../../../helpers';
+import { formatDate, scrollReveal, scrollRevealConfig } from '../../../helpers';
 import { RootState } from '../../../redux/store';
 import { usePrefersReducedMotion } from '../../hooks';
 
@@ -32,7 +32,7 @@ const Experiences: React.FC = () => {
             <div className="inner">
                 <TabList role="tablist" aria-label="Experiences Tab">
                     {[...experiences]
-                        ?.sort((a: any, b: any) => new Date(b.from).getDate() - new Date(a.from).getDate())
+                        ?.sort((a: any, b: any) => new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate())
                         ?.map((exp: DataObj, idx: number) => {
                             const { organization } = exp;
                             const { name } = organization ?? {};
@@ -55,7 +55,7 @@ const Experiences: React.FC = () => {
                 </TabList>
                 <TabPanels>
                     {[...experiences]
-                        ?.sort((a: any, b: any) => new Date(b.from).getDate() - new Date(a.from).getDate())?.map((exp: DataObj, idx: number) => {
+                        ?.sort((a: any, b: any) => new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate())?.map((exp: DataObj, idx: number) => {
                             const { title, range, html, organization } = exp;
                             const { website, organization: name } = organization ?? {};
                             return (
@@ -84,6 +84,10 @@ const Experiences: React.FC = () => {
                                         <p className="range">{range}</p>
 
                                         <div dangerouslySetInnerHTML={{ __html: html }} />
+
+                                        <div className='mt-2'>
+                                          From: {formatDate(exp.from)} - {exp.to ? `To: ${formatDate(exp.to)}` : "Present"}
+                                        </div>
                                     </TabPanel>
                                 </CSSTransition>
                             );

@@ -44,10 +44,11 @@ const Featured: React.FC = () => {
 
     useEffect(() => {
         const controller = new AbortController();
-        if (featured_projects?.length <= 0) dispatch(getFeaturedProjects({}, controller));
-        return () => {
-            controller.abort();
-        };
+        if (featured_projects?.length <= 0) {
+            dispatch(getFeaturedProjects({}, controller));
+        }
+
+        return () => controller.abort();
     }, [featured_projects]);
 
     return (
