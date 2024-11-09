@@ -50,6 +50,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: react-github-actions-build
+          path: ./artifact-download
       - name: Push artifacts
         run: |
           git clone --depth 1 --single-branch -b ${{github.ref_name}} git@github.com:${{github.repository}}.git deploy
@@ -58,7 +59,7 @@ jobs:
           mkdir deploy
           mv deploy-.git deploy/.git
           cd deploy
-          cp -R ../react-github-actions-build/* .
+          cp -R ../artifact-download/* .
           git checkout -b deployment
           git add .
           git commit -m "Update Artifacts ${{github.run_number}}"
