@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { getAnalytics, logEvent } from 'firebase/analytics';
 import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled, { css } from 'styled-components';
+import { Menu } from '.';
 import { menus } from '../../../config';
 import { loaderDelay } from '../../../helpers';
-import { useScrollDirection, usePrefersReducedMotion } from '../../hooks';
-import { Menu } from '.';
-import { IconLogo } from '../icons';
-import { getAnalytics, logEvent } from 'firebase/analytics';
-import { AppContext } from '../context';
-import { shallowEqual } from 'react-redux';
 import { RootState } from '../../../redux/store';
-import { useSelector } from 'react-redux';
+import { usePrefersReducedMotion, useScrollDirection } from '../../hooks';
+import { AppContext } from '../context';
+import { IconLogo } from '../icons';
 
 interface HeaderProps {
     isHome?: boolean;
@@ -85,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ isHome }) => {
 
     const ResumeLink = (
         <a
-            className="resume-button"
+            className="resume-button learn-more"
             href={about?.resume?.media}
             target="_blank"
             rel="noopener noreferrer"
@@ -248,14 +247,14 @@ const StyledNav = styled.nav`
         ${({ theme }) => theme.mixins.flexCenter};
 
         a {
-            color: var(--tinder-pink);
+            color: var(--cyberpunk);
             width: 200px;
             height: 60px;
 
             &:hover,
             &:focus {
                 svg {
-                    fill: var(--tinder-pink-tint);
+                    fill: var(--cyberpunk-tint);
                 }
             }
 
@@ -294,7 +293,7 @@ const StyledLinks = styled.div`
                 &:before {
                     content: '0' counter(item) '.';
                     margin-right: 5px;
-                    color: var(--tinder-pink);
+                    color: var(--cyberpunk);
                     font-size: var(--fz-xxs);
                     text-align: right;
                 }

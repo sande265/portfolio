@@ -10,7 +10,9 @@ export const getFeaturedProjects = (
     const params: DataObj = {
         limit: attribute?.limit || 10,
         page: attribute?.page || 1,
-        q: attribute?.q
+        q: attribute?.q,
+        sort_by: attribute?.sort_by ?? 'desc',
+        sort_field: attribute?.sort_field ?? 'createdAt',
     };
 
     return (dispatch: any) => {

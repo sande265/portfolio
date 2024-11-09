@@ -1,11 +1,11 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { getFeaturedProjects } from '../../../actions/featured-actions';
 import { scrollReveal, scrollRevealConfig } from '../../../helpers';
 import { RootState } from '../../../redux/store';
 import { usePrefersReducedMotion } from '../../hooks';
 import { Icon } from '../components';
-import styled from 'styled-components';
-import { getFeaturedProjects } from '../../../actions/featured-actions';
 
 interface FeaturedAttachment {
     name: string;
@@ -90,7 +90,7 @@ const Featured: React.FC = () => {
 
                                 <div className="project-links">
                                     {cta && (
-                                        <a href={cta} aria-label="Course Link" className="cta">
+                                        <a href={cta} aria-label="Course Link" className="cta learn-more">
                                             Learn More
                                         </a>
                                     )}
@@ -125,8 +125,6 @@ const Featured: React.FC = () => {
                                                 src={mediaUrl}
                                                 alt={title}
                                                 style={{ width: '100%', objectFit: "contain", borderRadius: "var(--border-radius)" }}
-                                                // height={438}
-                                                // width={700}
                                                 className="img"
                                             />
                                         </a>
@@ -254,7 +252,7 @@ const Project = styled.li`
 
     .project-overline {
         margin: 10px 0;
-        color: var(--tinder-pink);
+        color: var(--cyberpunk);
         font-family: var(--font-mono);
         font-size: var(--fz-xs);
         font-weight: 400;
@@ -294,13 +292,14 @@ const Project = styled.li`
         z-index: 2;
         padding: 25px;
         border-radius: var(--border-radius);
-        background-color: var(--light-navy);
-        color: var(--light-slate);
-        opacity: 0.9;
+        background-color: var(--green-tint-dark);
+        color: var(--white);
         font-size: var(--fz-lg);
+        font-weight: 500;
 
         :hover {
             opacity: 1;
+            background-color: rgba(100, 255, 218, 0.6);
         }
 
         @media (max-width: 768px) {
@@ -403,7 +402,7 @@ const Project = styled.li`
         a {
             width: 100%;
             height: 100%;
-            //   background-color: var(--tinder-pink);
+            //   background-color: var(--cyberpunk);
             border-radius: var(--border-radius);
             vertical-align: middle;
 

@@ -1,10 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 import fonts from './fonts';
-import variables from './variables';
 import TransitionStyles from './transitions';
+import variables from './variables';
 
 const GlobalStyle: any = createGlobalStyle`
-
   ${fonts};
   ${variables};
 
@@ -27,7 +26,7 @@ const GlobalStyle: any = createGlobalStyle`
 
   /* Provide basic, default focus styles.*/
   :focus {
-    outline: 2px dashed var(--tinder-pink);
+    outline: 2px dashed var(--cyberpunk);
     outline-offset: 3px;
   }
 
@@ -46,7 +45,7 @@ const GlobalStyle: any = createGlobalStyle`
     focus.
   */
   :focus-visible {
-    outline: 2px dashed var(--tinder-pink);
+    outline: 2px dashed var(--cyberpunk);
     outline-offset: 3px;
   }
 
@@ -194,7 +193,7 @@ const GlobalStyle: any = createGlobalStyle`
       counter-increment: section;
       content: '0' counter(section) '.';
       margin-right: 10px;
-      color: var(--tinder-pink);
+      color: var(--cyberpunk);
       font-family: var(--font-mono);
       font-size: clamp(var(--fz-md), 3vw, var(--fz-xl));
       font-weight: 400;
@@ -258,7 +257,7 @@ const GlobalStyle: any = createGlobalStyle`
 
     &:hover,
     &:focus {
-      color: var(--tinder-pink);
+      color: var(--cyberpunk);
     }
 
     &.inline-link {
@@ -300,7 +299,7 @@ const GlobalStyle: any = createGlobalStyle`
     }
 
     & > code {
-      background-color: var(--light-navy);
+      background-color: var(--green-tint);
       color: var(--white);
       font-size: var(--fz-sm);
       border-radius: var(--border-radius);
@@ -322,14 +321,14 @@ const GlobalStyle: any = createGlobalStyle`
           content: '▹';
           position: absolute;
           left: 0;
-          color: var(--tinder-pink);
+          color: var(--cyberpunk);
         }
       }
     }
   }
 
   blockquote {
-    border-left-color: var(--tinder-pink);
+    border-left-color: var(--cyberpunk);
     border-left-style: solid;
     border-left-width: 1px;
     margin-left: 0px;
@@ -369,7 +368,7 @@ const GlobalStyle: any = createGlobalStyle`
 
     &:focus,
     &:active {
-      background-color: var(--tinder-pink);
+      background-color: var(--cyberpunk);
       color: var(--navy);
       top: 0;
       left: 0;
@@ -381,18 +380,18 @@ const GlobalStyle: any = createGlobalStyle`
   }
 
   #logo {
-    color: var(--tinder-pink);
+    color: var(--cyberpunk);
   }
 
   .overline {
-    color: var(--tinder-pink);
+    color: var(--cyberpunk);
     font-family: var(--font-mono);
     font-size: var(--fz-md);
     font-weight: 400;
   }
 
   .subtitle {
-    color: var(--tinder-pink);
+    color: var(--cyberpunk);
     margin: 0 0 20px 0;
     font-size: var(--fz-md);
     font-family: var(--font-mono);
@@ -415,7 +414,7 @@ const GlobalStyle: any = createGlobalStyle`
     display: flex;
     align-items: center;
     margin-bottom: 50px;
-    color: var(--tinder-pink);
+    color: var(--cyberpunk);
 
     .arrow {
       display: block;
@@ -437,6 +436,24 @@ const GlobalStyle: any = createGlobalStyle`
   .gatsby-image-outer-wrapper {
     height: 100%;
   }
+
+  .learn-more {
+    :hover {
+        background-color: var(--green-tint);
+        background: linear-gradient(90deg, var(--green-tint) 0%, var(--green-tint-dark) 50%, var(--green-tint) 100%);
+        background-size: 200% 100%;
+        animation: gradientMove 2s ease infinite;
+    }
+
+    @keyframes gradientMove {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: -200% 0;
+        }
+    }
+}
 
   ${TransitionStyles};
 `;

@@ -32,7 +32,10 @@ const Experiences: React.FC = () => {
             <div className="inner">
                 <TabList role="tablist" aria-label="Experiences Tab">
                     {[...experiences]
-                        ?.sort((a: any, b: any) => new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate())
+                        ?.sort(
+                            (a: any, b: any) =>
+                                new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate(),
+                        )
                         ?.map((exp: DataObj, idx: number) => {
                             const { organization } = exp;
                             const { name } = organization ?? {};
@@ -55,7 +58,11 @@ const Experiences: React.FC = () => {
                 </TabList>
                 <TabPanels>
                     {[...experiences]
-                        ?.sort((a: any, b: any) => new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate())?.map((exp: DataObj, idx: number) => {
+                        ?.sort(
+                            (a: any, b: any) =>
+                                new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate(),
+                        )
+                        ?.map((exp: DataObj, idx: number) => {
                             const { title, range, html, organization } = exp;
                             const { website, organization: name } = organization ?? {};
                             return (
@@ -83,10 +90,11 @@ const Experiences: React.FC = () => {
 
                                         <p className="range">{range}</p>
 
-                                        <div dangerouslySetInnerHTML={{ __html: html }} />
+                                        <div className='job-description' dangerouslySetInnerHTML={{ __html: html }} />
 
-                                        <div className='mt-2'>
-                                          From: {formatDate(exp.from)} - {exp.to ? `To: ${formatDate(exp.to)}` : "Present"}
+                                        <div className="mt-2">
+                                            From: {formatDate(exp.from)} -{' '}
+                                            {exp.to ? `To: ${formatDate(exp.to)}` : 'Present'}
                                         </div>
                                     </TabPanel>
                                 </CSSTransition>
@@ -111,7 +119,6 @@ const Section = styled.section`
             display: block;
         }
 
-        // Prevent container from jumping
         @media (min-width: 700px) {
             min-height: 340px;
         }
@@ -138,8 +145,6 @@ const TabList = styled.div`
     }
     @media (max-width: 480px) {
         width: calc(100% + 50px);
-        /* padding-left: 25px;
-        margin-left: -25px; */
     }
 
     li {
@@ -171,7 +176,7 @@ const TabButton: any = styled.button`
     padding: 0 20px 2px;
     border-left: 2px solid var(--lightest-navy);
     background-color: transparent;
-    color: ${({ isActive }: any) => (isActive ? 'var(--tinder-pink)' : 'var(--slate)')};
+    color: ${({ isActive }: any) => (isActive ? 'var(--cyberpunk)' : 'var(--slate)')};
     font-family: var(--font-mono);
     font-size: var(--fz-xs);
     text-align: left;
@@ -194,7 +199,7 @@ const TabButton: any = styled.button`
 
     &:hover,
     &:focus {
-        background-color: var(--light-navy);
+        background-color: var(--green-tint);
     }
 `;
 
@@ -206,7 +211,7 @@ const Highlight: any = styled.div`
     width: 2px;
     height: var(--tab-height);
     border-radius: var(--border-radius);
-    background: var(--tinder-pink);
+    background: var(--cyberpunk);
     transform: translateY(calc(${({ activeTabId }: any) => activeTabId} * var(--tab-height)));
     transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition-delay: 0.1s;
@@ -252,7 +257,7 @@ const TabPanel = styled.div`
         line-height: 1.3;
 
         .company {
-            color: var(--tinder-pink);
+            color: var(--cyberpunk);
             cursor: pointer;
         }
     }
@@ -262,5 +267,24 @@ const TabPanel = styled.div`
         color: var(--light-slate);
         font-family: var(--font-mono);
         font-size: var(--fz-xs);
+    }
+
+    .job-description {
+        li {
+            position: relative;
+            margin-bottom: 20px;
+            font-family: var(--font-mono);
+            font-size: var(--fz-sm);
+            color: var(--lightest-slate);
+
+            &:before {
+                content: '▹';
+                position: absolute;
+                left: 0;
+                color: var(--cyberpunk);
+                font-size: var(--fz-xxl);
+                line-height: 14px;
+            }
+        }
     }
 `;
