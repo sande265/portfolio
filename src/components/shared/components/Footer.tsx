@@ -1,8 +1,8 @@
 // import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Icon } from './Icons';
 import { links } from '../../../config';
+import { Icon } from './Icons';
 
 const Footer: React.FC = () => {
 
@@ -43,10 +43,10 @@ const Footer: React.FC = () => {
 
             <StyledCredit tabIndex={-1}>
                 <a href="https://github.com/sande265" className="href">
-                    <div className="">Built by <span style={{ color: "var(--tinder-pink)" }}>Sandesh Singh</span></div>
+                    <div className="">Built by <span style={{ color: "var(--cyberpunk)" }}>Sandesh Singh</span></div>
                 </a>
                 <div>
-                    <div>Design Inspiration from <span style={{ color: "var(--tinder-pink)" }}>Brittany Chiang</span></div>
+                    <div>Design Inspiration from <span style={{ color: "var(--cyberpunk)" }}>Brittany Chiang</span></div>
                     {/* {githubInfo.stars && githubInfo.forks && (
                         <div className="github-stats">
                             <span>

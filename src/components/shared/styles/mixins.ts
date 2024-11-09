@@ -1,9 +1,9 @@
 import { css } from 'styled-components';
 
 const button = css`
-  color: var(--tinder-pink);
+  color: var(--cyberpunk);
   background-color: transparent;
-  border: 1px solid var(--tinder-pink);
+  border: 1px solid var(--cyberpunk);
   border-radius: calc(var(--border-radius) * 3);
   font-size: var(--fz-xs);
   font-family: var(--font-mono);
@@ -16,7 +16,7 @@ const button = css`
   &:hover,
   &:focus,
   &:active {
-    background-color: var(--tinder-pink-tint);
+    background-color: var(--cyberpunk-tint);
     outline: none;
   }
   &:after {
@@ -47,7 +47,7 @@ const mixins = {
     &:hover,
     &:active,
     &:focus {
-      color: var(--tinder-pink);
+      color: var(--cyberpunk);
       outline: 0;
     }
   `,
@@ -58,17 +58,17 @@ const mixins = {
     text-decoration-skip-ink: auto;
     position: relative;
     transition: var(--transition);
-    color: var(--tinder-pink);
+    color: var(--cyberpunk);
     &:hover,
     &:focus,
     &:active {
-      color: var(--tinder-pink);
+      color: var(--cyberpunk);
       outline: 0;
       &:after {
         width: 100%;
       }
       & > * {
-        color: var(--tinder-pink) !important;
+        color: var(--cyberpunk) !important;
         transition: var(--transition);
       }
     }
@@ -79,7 +79,7 @@ const mixins = {
       height: 1px;
       position: relative;
       bottom: 0.25em;
-      background-color: var(--tinder-pink);
+      background-color: var(--cyberpunk);
       transition: var(--transition);
       opacity: 0.5;
     }
@@ -88,9 +88,9 @@ const mixins = {
   button,
 
   smallButton: css`
-    color: var(--tinder-pink);
+    color: var(--cyberpunk);
     background-color: transparent;
-    border: 1px solid var(--tinder-pink);
+    border: 1px solid var(--cyberpunk);
     border-radius: calc(var(--border-radius) * 3);
     padding: 0.75rem 1rem;
     font-size: var(--fz-xs);
@@ -102,7 +102,7 @@ const mixins = {
     &:hover,
     &:focus,
     &:active {
-      background-color: var(--tinder-pink-tint);
+      background-color: var(--cyberpunk-tint);
       outline: none;
     }
     &:after {
@@ -111,9 +111,9 @@ const mixins = {
   `,
 
   bigButton: css`
-    color: var(--tinder-pink);
+    color: var(--cyberpunk);
     background-color: transparent;
-    border: 1px solid var(--tinder-pink);
+    border: 1px solid var(--cyberpunk);
     border-radius: calc(var(--border-radius) * 2);
     padding: 1.25rem 1.75rem;
     font-size: var(--fz-sm);
@@ -125,7 +125,7 @@ const mixins = {
     &:hover,
     &:focus,
     &:active {
-      background-color: var(--tinder-pink-tint);
+      background-color: var(--cyberpunk-tint);
       outline: none;
     }
     &:after {
@@ -156,7 +156,7 @@ const mixins = {
         content: '▹';
         position: absolute;
         left: 0;
-        color: var(--tinder-pink);
+        color: var(--cyberpunk);
       }
     }
   `,

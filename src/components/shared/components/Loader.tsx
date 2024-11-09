@@ -21,9 +21,9 @@ const Loader: React.FC<LoaderProps> = ({ onLoaded }) => {
             targets: '#logo path',
             strokeDashoffset: [anime.setDashoffset, 0],
             easing: 'easeInOutSine',
-            duration: 2000,
+            duration: 1000,
             delay: function (el: any, i: number) {
-                return i * 120;
+                return i * 60;
             },
         });
     };

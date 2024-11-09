@@ -44,12 +44,12 @@ const Contact: React.FC = () => {
             </p>
 
             <div>
-                <a className="email-link" href={`mailto:${about.email}`}>
+                <a className="email-link learn-more" href={`mailto:${about.email}`}>
                     Say Hello
                 </a>
             </div>
             <div>
-                <a className="email-link" href={`tel:${about.contact}`}>
+                <a className="email-link learn-more" href={`tel:${about.contact}`}>
                     Let&lsquo;s have a talk
                 </a>
             </div>
@@ -69,7 +69,7 @@ const Section = styled.section`
     .overline {
         display: block;
         margin-bottom: 20px;
-        color: var(--tinder-pink);
+        color: var(--cyberpunk);
         font-family: var(--font-mono);
         font-size: var(--fz-md);
         font-weight: 400;

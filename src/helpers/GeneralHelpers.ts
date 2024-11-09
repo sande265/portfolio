@@ -4,9 +4,9 @@ import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory();
 
 export const formatDate = (date: string) => {
-  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(date).toLocaleDateString(undefined, options);
-}
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
+};
 
 export const handleLogout = () => {
     localStorage.clear();

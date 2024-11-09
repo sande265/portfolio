@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef, MutableRefObject } from 'react';
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
-import { scrollReveal, scrollRevealConfig } from '../../../helpers';
-import { Icon } from '../components';
-import { usePrefersReducedMotion } from '../../hooks';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../redux/store';
 import { getProjects } from '../../../actions/project-actions';
+import { scrollReveal, scrollRevealConfig } from '../../../helpers';
+import { RootState } from '../../../redux/store';
+import { usePrefersReducedMotion } from '../../hooks';
+import { Icon } from '../components';
 
 const Projects: React.FC = () => {
     const { projects } = useSelector(
@@ -39,7 +39,7 @@ const Projects: React.FC = () => {
         const controller = new AbortController();
         dispatch(
             getProjects(
-                { limit: 100, filter: [{ key: 'status', value: 1 }], sort_field: 'order' },
+                { limit: 100, filter: [{ key: 'status', value: 1 }], sort_field: 'createdAt', sort_by: "desc" },
                 controller,
             ),
         );
@@ -86,7 +86,7 @@ const Projects: React.FC = () => {
                     </div>
 
                     <h3 className="project-title">
-                        <a href={external} target="_blank" rel="noreferrer">
+                        <a href={external ? external : github} target="_blank" rel="noreferrer">
                             {title}
                         </a>
                     </h3>
@@ -114,18 +114,10 @@ const Projects: React.FC = () => {
         <Section>
             <h2 ref={revealTitle}>Other Noteworthy Projects</h2>
 
-            {/* <Link className="inline-link archive-link" to="/archive" ref={revealArchiveLink}>
-                view the archive
-            </Link> */}
-
             <ul className="projects-grid">
                 {prefersReducedMotion ? (
-                    <>
-                        {projectsToShow &&
-                            projectsToShow.map((node, i) => (
-                                <Project key={i}>{projectInner(node)}</Project>
-                            ))}
-                    </>
+                    projectsToShow &&
+                    projectsToShow.map((node, i) => <Project key={i}>{projectInner(node)}</Project>)
                 ) : (
                     <TransitionGroup component={null}>
                         {projectsToShow &&
@@ -142,6 +134,8 @@ const Projects: React.FC = () => {
                                             transitionDelay: `${
                                                 i >= GRID_LIMIT ? (i - GRID_LIMIT) * 100 : 0
                                             }ms`,
+                                            pointerEvents:
+                                                !node.external && !node.github ? 'none' : 'all',
                                         }}>
                                         {projectInner(node)}
                                     </Project>
@@ -151,7 +145,7 @@ const Projects: React.FC = () => {
                 )}
             </ul>
 
-            <button className="more-button" onClick={() => setShowMore(!showMore)}>
+            <button className="more-button learn-more" onClick={() => setShowMore(!showMore)}>
                 Show {showMore ? 'Less' : 'More'}
             </button>
         </Section>
@@ -206,7 +200,25 @@ const Project = styled.li`
         &:hover,
         &:focus-within {
             .project-inner {
-                transform: translateY(-7px);
+                transform: scale(1.01) translateY(-4px);
+                box-shadow: 0 20px 20px -15px rgba(0, 0, 0, 0.2), 0 0 20px 10px var(--cyberpunk); /* Main shadow + glow effect */
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: inherit;
+                background: transparent;
+                box-shadow: 0 0 20px 4px var(--cyberpunk);
+                z-index: -1;
+                transform: translateY(-4px);
+                border-radius: var(--border-radius);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
             }
         }
     }
@@ -225,7 +237,7 @@ const Project = styled.li`
         height: 100%;
         padding: 2rem 1.75rem;
         border-radius: var(--border-radius);
-        background-color: var(--light-navy);
+        background-color: var(--green-tint);
         transition: var(--transition);
         overflow: auto;
     }
@@ -242,7 +254,7 @@ const Project = styled.li`
             text-align: center;
             padding: 4px 8px 1px;
         }
-        
+
         .project-links {
             display: flex;
             align-items: center;

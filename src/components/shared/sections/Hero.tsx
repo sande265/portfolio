@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
-import { loaderDelay, navDelay } from '../../../helpers';
-import { usePrefersReducedMotion } from '../../hooks';
-import { RootState } from '../../../redux/store';
 import { getExperiences } from '../../../actions/experience-actions';
+import { loaderDelay, navDelay } from '../../../helpers';
+import { RootState } from '../../../redux/store';
+import { usePrefersReducedMotion } from '../../hooks';
 
 const Hero: React.FC = () => {
 
@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
                 {experience?.description}
                 <br />
                 @&nbsp;
-                <a href={experience?.organization?.website} target="_blank" rel="noreferrer">
+                <a href={experience?.organization?.website} target="_blank" rel="noreferrer" style={{ marginTop: 12 }}>
                     {experience?.organization?.organization}
                 </a>
             </p>
@@ -104,7 +104,7 @@ const HeroSection = styled.section`
 
     h1 {
         margin: 0 0 30px 4px;
-        color: var(--tinder-pink);
+        color: var(--cyberpunk);
         font-family: var(--font-mono);
         font-size: clamp(var(--fz-sm), 5vw, var(--fz-md));
         font-weight: 400;

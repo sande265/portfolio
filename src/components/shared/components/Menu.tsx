@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef, MutableRefObject, useContext } from 'react';
+import { getAnalytics, logEvent } from 'firebase/analytics';
+import React, { MutableRefObject, useContext, useEffect, useRef, useState } from 'react';
+import Helmet from 'react-helmet';
+import { shallowEqual, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Helmet from 'react-helmet';
 import { menus } from '../../../config';
 import { KEY_CODES } from '../../../helpers';
-import { useOnClickOutside } from '../../hooks';
-import { shallowEqual } from 'react-redux';
 import { RootState } from '../../../redux/store';
-import { useSelector } from 'react-redux';
-import { getAnalytics, logEvent } from 'firebase/analytics';
+import { useOnClickOutside } from '../../hooks';
 import { AppContext } from '../context';
 
 const Menu: React.FC = () => {
@@ -205,7 +204,7 @@ const StyledHamburgerButton: any = styled.button`
         width: var(--hamburger-width);
         height: 2px;
         border-radius: var(--border-radius);
-        background-color: var(--tinder-pink);
+        background-color: var(--cyberpunk);
         transition-duration: 0.22s;
         transition-property: transform;
         transition-delay: ${(props: any) => (props.menuOpen ? `0.12s` : `0s`)};
@@ -223,7 +222,7 @@ const StyledHamburgerButton: any = styled.button`
             width: var(--hamburger-width);
             height: 2px;
             border-radius: 4px;
-            background-color: var(--tinder-pink);
+            background-color: var(--cyberpunk);
             transition-timing-function: ease;
             transition-duration: 0.15s;
             transition-property: transform;
@@ -258,7 +257,7 @@ const StyledSidebar: any = styled.aside`
         width: min(75vw, 400px);
         height: 100vh;
         outline: 0;
-        background-color: var(--light-navy);
+        background-color: var(--green-tint);
         box-shadow: -10px 0px 30px -15px var(--navy-shadow);
         z-index: 9;
         transform: translateX(${(props: any) => (props.menuOpen ? 0 : 100)}vw);
@@ -295,7 +294,7 @@ const StyledSidebar: any = styled.aside`
                 content: '0' counter(item) '.';
                 display: block;
                 margin-bottom: 5px;
-                color: var(--tinder-pink);
+                color: var(--cyberpunk);
                 font-size: var(--fz-sm);
             }
         }

@@ -1,12 +1,10 @@
 import { Fragment, MutableRefObject, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { scrollReveal, scrollRevealConfig } from '../../../helpers';
-import { usePrefersReducedMotion } from '../../hooks';
-import { RootState } from '../../../redux/store';
-import { shallowEqual } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import { getAboutMeList } from '../../../actions/about-actions';
+import { scrollReveal, scrollRevealConfig } from '../../../helpers';
+import { RootState } from '../../../redux/store';
+import { usePrefersReducedMotion } from '../../hooks';
 
 const About: React.FC = () => {
     const { aboutme } = useSelector(
@@ -62,7 +60,7 @@ const About: React.FC = () => {
                                 </Fragment>
                             ))}
                         </p>
-                        <p>technologies I am friendly with:</p>
+                        <p className='tech-info'>Technologies I am friendly with:</p>
                     </div>
                     <ul className="skills-list">
                         {about?.tech_stack?.map((lib: string, idx: number) => (
@@ -95,6 +93,15 @@ const AboutSection = styled.section`
             display: block;
         }
     }
+
+    p {
+        color: var(--light-slate);
+    }
+
+    .tech-info {
+        font-size: var(--fz-xl);
+        font-weight: 500;
+    }
 `;
 const Text = styled.div`
     ul.skills-list {
@@ -108,17 +115,18 @@ const Text = styled.div`
 
         li {
             position: relative;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             padding-left: 20px;
             font-family: var(--font-mono);
             font-size: var(--fz-xs);
+            color: var(--lightest-slate);
 
             &:before {
                 content: '▹';
                 position: absolute;
                 left: 0;
-                color: var(--tinder-pink);
-                font-size: var(--fz-sm);
+                color: var(--cyberpunk);
+                font-size: var(--fz-xl);
                 line-height: 12px;
             }
         }
@@ -139,7 +147,7 @@ const Pic = styled.div`
         position: relative;
         width: 100%;
         border-radius: var(--border-radius);
-        background-color: var(--tinder-pink);
+        background-color: var(--cyberpunk);
 
         &:hover,
         &:focus {
@@ -184,7 +192,7 @@ const Pic = styled.div`
         }
 
         &:after {
-            border: 2px solid var(--tinder-pink);
+            border: 2px solid var(--cyberpunk);
             top: 20px;
             left: 20px;
             z-index: -1;
