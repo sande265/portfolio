@@ -8,7 +8,6 @@ import { RootState } from '../../../redux/store';
 import { usePrefersReducedMotion } from '../../hooks';
 
 const Hero: React.FC = () => {
-
     const { experiences } = useSelector(
         (state: RootState) => ({
             experiences: state.experience.experiences,
@@ -34,7 +33,12 @@ const Hero: React.FC = () => {
 
     useEffect(() => {
         if (experiences?.length > 0) {
-            const experience = experiences.find((x: DataObj) => x.to === null);
+            const experience = experiences
+                .filter((x: DataObj) => x.status)
+                .sort(
+                    (x, y) => new Date(y.createdAt).getTime() - new Date(x.createdAt).getTime(),
+                )[0];
+
             if (experience) setExperience(experience);
         }
     }, [experiences]);
@@ -51,7 +55,11 @@ const Hero: React.FC = () => {
                 {experience?.description}
                 <br />
                 @&nbsp;
-                <a href={experience?.organization?.website} target="_blank" rel="noreferrer" style={{ marginTop: 12 }}>
+                <a
+                    href={experience?.organization?.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ marginTop: 12 }}>
                     {experience?.organization?.organization}
                 </a>
             </p>
@@ -67,7 +75,7 @@ const Hero: React.FC = () => {
     }, []);
 
     return (
-        <HeroSection id='hero'>
+        <HeroSection id="hero">
             {reduceMotion ? (
                 <Fragment>
                     {elements.map((item, i: number) => (

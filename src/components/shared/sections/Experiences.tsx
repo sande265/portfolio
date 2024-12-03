@@ -32,6 +32,7 @@ const Experiences: React.FC = () => {
             <div className="inner">
                 <TabList role="tablist" aria-label="Experiences Tab">
                     {[...experiences]
+                        ?.filter(exp => exp.status)
                         ?.sort(
                             (a: any, b: any) =>
                                 new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate(),
@@ -58,6 +59,7 @@ const Experiences: React.FC = () => {
                 </TabList>
                 <TabPanels>
                     {[...experiences]
+                        ?.filter(exp => exp.status)
                         ?.sort(
                             (a: any, b: any) =>
                                 new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate(),

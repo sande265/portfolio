@@ -57,83 +57,97 @@ const Featured: React.FC = () => {
                 Some Things I’ve Built
             </h2>
             <ProjectsGrid>
-                {featured_projects?.map((feature: DataObj | FeaturedData, idx: number) => {
-                    const {
-                        title,
-                        attachments,
-                        cta,
-                        project: { html, external, github, tech },
-                    } = feature;
-                    return (
-                        <Project
-                            key={idx}
-                            ref={el =>
-                                showContainer.current ? (showContainer.current[idx] = el) : () => ''
-                            }>
-                            <div className="project-content">
-                                <p className="project-overline">Featured</p>
-                                <h3 className="project-title">
-                                    <a href={external}>{title}</a>
-                                </h3>
+                {featured_projects
+                    ?.filter((p: DataObj) => p.status)
+                    ?.map((feature: DataObj | FeaturedData, idx: number) => {
+                        const {
+                            title,
+                            attachments,
+                            cta,
+                            project: { html, external, github, tech },
+                        } = feature;
+                        return (
+                            <Project
+                                key={idx}
+                                ref={el =>
+                                    showContainer.current
+                                        ? (showContainer.current[idx] = el)
+                                        : () => ''
+                                }>
+                                <div className="project-content">
+                                    <p className="project-overline">Featured</p>
+                                    <h3 className="project-title">
+                                        <a href={external}>{title}</a>
+                                    </h3>
 
-                                <div
-                                    className="project-description"
-                                    dangerouslySetInnerHTML={{ __html: html }}
-                                />
-                                {tech?.length && (
-                                    <ul className="project-tech-list">
-                                        {tech.map((tech: string, i: number) => (
-                                            <li key={i}>{tech}</li>
-                                        ))}
-                                    </ul>
-                                )}
+                                    <div
+                                        className="project-description"
+                                        dangerouslySetInnerHTML={{ __html: html }}
+                                    />
+                                    {tech?.length && (
+                                        <ul className="project-tech-list">
+                                            {tech.map((tech: string, i: number) => (
+                                                <li key={i}>{tech}</li>
+                                            ))}
+                                        </ul>
+                                    )}
 
-                                <div className="project-links">
-                                    {cta && (
-                                        <a href={cta} aria-label="Course Link" className="cta learn-more">
-                                            Learn More
-                                        </a>
-                                    )}
-                                    {github && (
-                                        <a href={github} aria-label="GitHub Link">
-                                            <Icon name="GitHub" />
-                                        </a>
-                                    )}
-                                    {external && !cta && (
-                                        <a
-                                            href={external}
-                                            aria-label="External Link"
-                                            className="external">
-                                            <Icon name="External" />
-                                        </a>
-                                    )}
+                                    <div className="project-links">
+                                        {cta && (
+                                            <a
+                                                href={cta}
+                                                aria-label="Course Link"
+                                                className="cta learn-more">
+                                                Learn More
+                                            </a>
+                                        )}
+                                        {github && (
+                                            <a href={github} aria-label="GitHub Link">
+                                                <Icon name="GitHub" />
+                                            </a>
+                                        )}
+                                        {external && !cta && (
+                                            <a
+                                                href={external}
+                                                aria-label="External Link"
+                                                className="external">
+                                                <Icon name="External" />
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="project-image">
-                                {attachments?.map((item: FeaturedAttachment, idx: number) => {
-                                    let mediaUrl = item?.media;
-                                    if (item?.height) mediaUrl += `?h=${item.height}`;
-                                    if (item?.width) mediaUrl += `${mediaUrl.includes("?") ? "&" : "?"}w=${item.width}`;
-                                    return (
-                                        <a
-                                            key={idx}
-                                            className="image-wrapper"
-                                            target={'_blank'}
-                                            rel="noreferrer"
-                                            href={external ? external : github ? github : '#'}>
-                                            <img
-                                                src={mediaUrl}
-                                                alt={title}
-                                                style={{ width: '100%', objectFit: "contain", borderRadius: "var(--border-radius)" }}
-                                                className="img"
-                                            />
-                                        </a>
-                                    );
-                                })}
-                            </div>
-                        </Project>
-                    );
-                })}
+                                <div className="project-image">
+                                    {attachments?.map((item: FeaturedAttachment, idx: number) => {
+                                        let mediaUrl = item?.media;
+                                        if (item?.height) mediaUrl += `?h=${item.height}`;
+                                        if (item?.width)
+                                            mediaUrl += `${mediaUrl.includes('?') ? '&' : '?'}w=${
+                                                item.width
+                                            }`;
+                                        return (
+                                            <a
+                                                key={idx}
+                                                className="image-wrapper"
+                                                target={'_blank'}
+                                                rel="noreferrer"
+                                                href={external ? external : github ? github : '#'}>
+                                                <img
+                                                    src={mediaUrl}
+                                                    alt={title}
+                                                    style={{
+                                                        width: '100%',
+                                                        objectFit: 'contain',
+                                                        borderRadius: 'var(--border-radius)',
+                                                    }}
+                                                    className="img"
+                                                />
+                                            </a>
+                                        );
+                                    })}
+                                </div>
+                            </Project>
+                        );
+                    })}
             </ProjectsGrid>
         </section>
     );
